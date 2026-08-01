@@ -1,0 +1,705 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Simpliment — Confidential Investment Memorandum</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ================= TOKENS — Simpliment (squared, no radius) ================= */
+:root{
+  --ink:#070C16; --ink-2:#0C1526; --ink-3:#111D34;
+  --azure:#D4740E; --azure-hi:#E8954A; --azure-deep:#B8620A;   /* Simpliment brand orange (amber preset, live on simpliment.co) */
+  --gold:#E0A63C; --gold-hi:#F0C066;
+  --blue:#3B82F6; --teal:#22B8A6; --violet:#8B7DF0; --rose:#EF6F8E;
+  --good:#34C88A; --warn:#E0A63C; --crit:#EF6F8E;
+
+  --radius:0px;
+  /* DARK default (software product = confident dark) */
+  --bg:#070C16; --surface:#0C1526; --surface-2:#111D34; --panel-ink:#05090F;
+  --line:#1B2942; --line-strong:#294064;
+  --tx:#EAF0FA; --tx-2:#A7B4CC; --tx-3:#6C7B99;
+  --tx-on-dark:#EAF0FA; --tx-on-dark-2:#A7B4CC;
+  --accent:var(--azure); --accent-ink:var(--azure-hi);
+  --val:var(--gold); --val-ink:var(--gold-hi);
+  --chart-surface:#0C1526;
+  --shadow:0 1px 2px rgba(0,0,0,.5),0 18px 50px rgba(0,0,0,.5);
+  --frost:rgba(12,21,38,.6);
+}
+@media (prefers-color-scheme: light){
+  :root{
+    --bg:#EEF1F7; --surface:#FFFFFF; --surface-2:#F5F7FB; --panel-ink:#0A1220;
+    --line:#DCE3EF; --line-strong:#C2CDDE; --tx:#0E1830; --tx-2:#44526B; --tx-3:#7A88A0;
+    --accent:#B8620A; --accent-ink:#B8620A; --val:#A9741F; --val-ink:#8A5E1C;
+    --good:#1F9D6B; --warn:#B7791F; --crit:#C64A63; --chart-surface:#FFFFFF;
+    --shadow:0 1px 2px rgba(20,30,60,.06),0 12px 34px rgba(20,30,60,.10); --frost:rgba(255,255,255,.7);
+  }
+}
+:root[data-theme="light"]{
+  --bg:#EEF1F7; --surface:#FFFFFF; --surface-2:#F5F7FB; --panel-ink:#0A1220;
+  --line:#DCE3EF; --line-strong:#C2CDDE; --tx:#0E1830; --tx-2:#44526B; --tx-3:#7A88A0;
+  --accent:#B8620A; --accent-ink:#B8620A; --val:#A9741F; --val-ink:#8A5E1C;
+  --good:#1F9D6B; --warn:#B7791F; --crit:#C64A63; --chart-surface:#FFFFFF;
+  --shadow:0 1px 2px rgba(20,30,60,.06),0 12px 34px rgba(20,30,60,.10); --frost:rgba(255,255,255,.7);
+}
+:root[data-theme="dark"]{
+  --bg:#070C16; --surface:#0C1526; --surface-2:#111D34; --panel-ink:#05090F;
+  --line:#1B2942; --line-strong:#294064; --tx:#EAF0FA; --tx-2:#A7B4CC; --tx-3:#6C7B99;
+  --accent:var(--azure); --accent-ink:var(--azure-hi); --val:var(--gold); --val-ink:var(--gold-hi);
+  --chart-surface:#0C1526; --shadow:0 1px 2px rgba(0,0,0,.5),0 18px 50px rgba(0,0,0,.5); --frost:rgba(12,21,38,.6);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation-duration:.001ms!important;transition-duration:.001ms!important}}
+body{background:var(--bg);color:var(--tx);font-family:"Space Grotesk",-apple-system,BlinkMacSystemFont,sans-serif;font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:"Fraunces",Georgia,serif;font-weight:600;line-height:1.08;text-wrap:balance;color:var(--tx)}
+.mono,.num{font-family:"JetBrains Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+button{font-family:inherit;cursor:pointer}
+img{max-width:100%;display:block}
+.eyebrow{font-family:"JetBrains Mono",monospace;font-size:.7rem;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--accent-ink)}
+.eyebrow .idx{color:var(--tx-3)}
+
+/* ===== gate ===== */
+#gate{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;padding:24px;background:var(--ink);overflow:hidden}
+#gate canvas{position:absolute;inset:0;opacity:.5}
+#gate .veil{position:absolute;inset:0;background:radial-gradient(120% 80% at 50% 40%,transparent,var(--ink) 78%)}
+#gate .card{position:relative;z-index:2;width:min(440px,100%);text-align:center}
+#gate .mark{font-family:"Fraunces";font-weight:600;font-size:2.6rem;color:#fff;letter-spacing:-.02em}
+#gate .mark b{color:var(--azure-hi)}
+#gate .kicker{font-family:"JetBrains Mono";font-size:.66rem;letter-spacing:.32em;text-transform:uppercase;color:var(--azure-hi);margin-top:14px}
+#gate p{color:var(--tx-on-dark-2);font-size:.9rem;margin:22px auto 24px;line-height:1.55;max-width:36ch}
+#gate .field{display:flex;gap:8px;background:rgba(255,255,255,.04);border:1px solid rgba(61,125,255,.4);padding:6px}
+#gate input{flex:1;background:transparent;border:0;color:#fff;font-size:1rem;padding:10px 12px;font-family:"JetBrains Mono";letter-spacing:.14em}
+#gate input:focus{outline:none}
+#gate button{background:var(--azure);color:#fff;border:0;font-weight:700;padding:0 22px;letter-spacing:.02em}
+#gate button:hover{background:var(--azure-deep)}
+#gate .err{color:var(--rose);font-size:.8rem;min-height:1.2em;margin-top:14px;font-family:"JetBrains Mono"}
+#gate .hint{margin-top:26px;font-size:.68rem;color:var(--tx-3);letter-spacing:.04em}
+body.locked{overflow:hidden;height:100vh}
+body.locked #shell{filter:blur(9px);pointer-events:none;user-select:none}
+
+/* ===== layout ===== */
+#shell{max-width:1180px;margin:0 auto;padding:0 clamp(20px,5vw,64px)}
+.rail{position:fixed;left:20px;top:50%;transform:translateY(-50%);z-index:40;display:none}
+@media(min-width:1300px){.rail{display:block}}
+.rail ol{list-style:none;display:flex;flex-direction:column;gap:3px}
+.rail a{display:flex;align-items:center;gap:9px;text-decoration:none;color:var(--tx-3);font-size:.64rem;font-family:"JetBrains Mono";letter-spacing:.06em;padding:5px 0;transition:color .2s;white-space:nowrap}
+.rail a .dot{width:20px;height:1px;background:var(--line-strong);transition:.2s;flex:none}
+.rail a .rname{max-width:0;overflow:hidden;opacity:0;transition:max-width .28s,opacity .2s;color:var(--tx-2)}
+.rail a:hover .rname,.rail a.on .rname{max-width:160px;opacity:1;margin-left:2px}
+.rail a.on{color:var(--accent-ink)} .rail a.on .dot{width:32px;background:var(--accent);height:2px} .rail a.on .rn{color:var(--accent-ink)}
+
+section{padding:clamp(64px,9vw,116px) 0;border-top:1px solid var(--line)}
+.lead{font-size:clamp(1.05rem,2.1vw,1.32rem);line-height:1.5;color:var(--tx-2);max-width:66ch;font-weight:400}
+.lead em{font-style:italic;color:var(--accent-ink)}
+.sec-head{margin-bottom:clamp(34px,5vw,56px)}
+.sec-head h2{font-size:clamp(1.9rem,4.4vw,3rem);margin:16px 0 20px;letter-spacing:-.015em}
+.sec-head h2 em{font-style:italic;color:var(--accent);font-weight:500}
+
+/* ===== hero ===== */
+#hero{position:relative;min-height:96vh;display:flex;flex-direction:column;margin:0 calc(50% - 50vw);overflow:hidden;border-top:0;background:var(--ink)}
+#hero canvas{position:absolute;inset:0}
+#hero .veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(7,12,22,.55) 0%,rgba(7,12,22,.30) 40%,rgba(7,12,22,.82) 100%)}
+#hero .wrap{position:relative;z-index:3;max-width:1180px;margin:0 auto;padding:0 clamp(20px,5vw,64px);width:100%;flex:1;display:flex;flex-direction:column;color:var(--tx-on-dark)}
+#hero .topbar{display:flex;justify-content:space-between;align-items:center;padding:26px 0;gap:16px}
+#hero .brand{font-family:"Fraunces";font-weight:600;font-size:1.3rem;color:#fff;letter-spacing:-.01em}
+#hero .brand b{color:var(--azure-hi)}
+#hero .tag{font-family:"JetBrains Mono";font-size:.62rem;letter-spacing:.24em;text-transform:uppercase;color:var(--tx-on-dark-2);text-align:right}
+#hero .hero-body{flex:1;display:flex;flex-direction:column;justify-content:center;padding:40px 0;max-width:24ch}
+#hero h1{color:#fff;font-size:clamp(2.5rem,6vw,5rem);font-weight:500;letter-spacing:-.025em;line-height:1.02;max-width:18ch}
+#hero h1 em{font-style:italic;color:var(--azure-hi);font-weight:400}
+#hero .sub{color:var(--tx-on-dark-2);font-size:clamp(1.05rem,2vw,1.28rem);max-width:56ch;margin-top:28px;line-height:1.5}
+#hero .topline{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin:44px 0;max-width:900px}
+#hero .topline .cell{background:var(--ink-2);padding:20px 20px}
+#hero .topline .k{font-family:"JetBrains Mono";font-size:.6rem;letter-spacing:.13em;text-transform:uppercase;color:var(--tx-on-dark-2)}
+#hero .topline .v{font-family:"Fraunces";font-size:clamp(1.5rem,3vw,2rem);font-weight:600;color:#fff;margin-top:8px}
+#hero .topline .v .u{font-size:.5em;font-family:"JetBrains Mono";color:var(--azure-hi);vertical-align:.4em;margin-left:2px}
+#hero .topline .cell.val .v{color:var(--gold-hi)}
+#hero .scroll{padding:18px 0 32px;font-family:"JetBrains Mono";font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:var(--tx-on-dark-2);display:flex;align-items:center;gap:12px}
+#hero .scroll .ln{width:52px;height:2px;background:var(--azure);animation:pull 2.4s ease-in-out infinite;transform-origin:left}
+@keyframes pull{0%,100%{transform:scaleX(.4)}50%{transform:scaleX(1)}}
+@media(max-width:720px){#hero .topline{grid-template-columns:repeat(2,1fr)}#hero .hero-body{max-width:100%}}
+
+/* ===== kpi / cards ===== */
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
+.kpi{background:var(--surface);border:1px solid var(--line);padding:22px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.kpi::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--accent)}
+.kpi.val::before{background:var(--val)}
+.kpi .k{font-family:"JetBrains Mono";font-size:.64rem;letter-spacing:.13em;text-transform:uppercase;color:var(--tx-3)}
+.kpi .v{font-family:"Fraunces";font-size:2rem;font-weight:600;margin:12px 0 4px;line-height:1}
+.kpi .d{font-size:.82rem;color:var(--tx-2)}
+.chip{display:inline-flex;align-items:center;gap:5px;font-family:"JetBrains Mono";font-size:.72rem;font-weight:600;padding:2px 7px}
+.chip.up{color:var(--good);background:color-mix(in srgb,var(--good) 15%,transparent)}
+.chip.flat{color:var(--tx-2);background:color-mix(in srgb,var(--tx-2) 13%,transparent)}
+
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.grid-3-2{display:grid;grid-template-columns:3fr 2fr;gap:28px;align-items:start}
+@media(max-width:820px){.grid2,.grid-3-2{grid-template-columns:1fr}}
+.panel{background:var(--surface);border:1px solid var(--line);padding:clamp(22px,3vw,32px);box-shadow:var(--shadow)}
+.panel.ink{background:var(--panel-ink);color:var(--tx-on-dark);border-color:var(--line)}
+.panel.ink h3,.panel.ink h4{color:#fff}
+.panel h3{font-size:1.28rem;margin-bottom:4px}
+.panel .ph-sub{color:var(--tx-2);font-size:.9rem;margin-bottom:22px}
+.panel.ink .ph-sub{color:var(--tx-on-dark-2)}
+.card-note{font-size:.78rem;color:var(--tx-3);line-height:1.5}
+
+.drow{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:11px 0;border-bottom:1px solid var(--line)}
+.drow:last-child{border-bottom:0}
+.drow .lbl{color:var(--tx-2);font-size:.92rem}
+.drow .val{font-family:"JetBrains Mono";font-weight:500}
+.drow.tot{border-top:2px solid var(--line-strong);border-bottom:0;margin-top:6px;padding-top:14px}
+.drow.tot .lbl{color:var(--tx);font-weight:700;font-family:"Fraunces";font-size:1.05rem}
+.drow.tot .val{font-weight:600;font-size:1.1rem;color:var(--val-ink)}
+.drow .pct{color:var(--tx-3);font-size:.78rem;margin-left:10px}
+
+.legend{display:flex;flex-wrap:wrap;gap:14px;margin-top:18px}
+.legend .li{display:flex;align-items:center;gap:8px;font-size:.8rem;color:var(--tx-2)}
+.legend .sw{width:12px;height:12px;flex:none}
+
+/* portfolio grid */
+.folio{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.mod{background:var(--surface);padding:16px 18px;position:relative}
+.mod .nm{font-weight:700;font-size:.95rem;color:var(--tx);display:flex;align-items:center;gap:8px}
+.mod .nm .st{width:7px;height:7px;flex:none;border-radius:50%}
+.st.live{background:var(--good)} .st.build{background:var(--gold)} .st.plan{background:var(--tx-3)}
+.mod .ds{font-size:.78rem;color:var(--tx-2);margin-top:6px;line-height:1.45}
+.mod .cls{position:absolute;top:14px;right:14px;font-family:"JetBrains Mono";font-size:.56rem;letter-spacing:.08em;text-transform:uppercase;color:var(--tx-3)}
+.folio-h{display:flex;align-items:center;gap:10px;margin:26px 0 10px}
+.folio-h .t{font-family:"JetBrains Mono";font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent-ink)}
+.folio-h .ln{flex:1;height:1px;background:var(--line)}
+
+/* controls */
+.control{margin-bottom:20px}
+.control .top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:9px}
+.control label{font-size:.9rem;font-weight:600;color:var(--tx)}
+.control .out{font-family:"JetBrains Mono";font-weight:600;color:var(--accent-ink);font-size:1.02rem}
+.control .desc{font-size:.76rem;color:var(--tx-3);margin-top:7px;line-height:1.45}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:4px;background:var(--line-strong);outline-offset:6px}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;background:var(--accent);border:3px solid var(--surface);cursor:pointer}
+input[type=range]::-moz-range-thumb{width:18px;height:18px;background:var(--accent);border:3px solid var(--surface);cursor:pointer;border-radius:0}
+.field-row{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;padding:9px 0;border-bottom:1px solid var(--line)}
+.field-row label{font-size:.86rem;color:var(--tx-2)}
+.field-row .inp{display:flex;align-items:center;gap:4px;background:var(--surface-2);border:1px solid var(--line-strong);padding:4px 8px}
+.field-row .inp span{color:var(--tx-3);font-size:.85rem;font-family:"JetBrains Mono"}
+.field-row input[type=number]{width:96px;border:0;background:transparent;color:var(--tx);font-family:"JetBrains Mono";font-size:.92rem;text-align:right}
+.field-row input:focus{outline:none}
+.seg{display:inline-flex;background:var(--surface-2);border:1px solid var(--line-strong);padding:3px;gap:3px}
+.seg button{border:0;background:transparent;color:var(--tx-2);padding:7px 15px;font-size:.82rem;font-weight:600}
+.seg button.on{background:var(--accent);color:#fff}
+
+.out-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+.out-grid .o{background:var(--surface);padding:20px}
+.out-grid .o .k{font-family:"JetBrains Mono";font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--tx-3)}
+.out-grid .o .v{font-family:"Fraunces";font-size:1.85rem;font-weight:600;margin-top:8px;line-height:1;color:var(--tx)}
+.out-grid .o .sub{font-size:.76rem;color:var(--tx-2);margin-top:6px}
+.v.good{color:var(--good)!important}.v.warn{color:var(--warn)!important}.v.crit{color:var(--crit)!important}
+
+.verdict{display:flex;align-items:center;gap:14px;padding:16px 20px;margin-top:16px;font-weight:600;background:color-mix(in srgb,var(--accent) 12%,transparent);border:1px solid color-mix(in srgb,var(--accent) 35%,transparent);color:var(--accent-ink)}
+.verdict .badge{font-family:"JetBrains Mono";font-size:.7rem;letter-spacing:.1em;padding:4px 9px;background:var(--accent);color:#fff;text-transform:uppercase;flex:none}
+
+.callout{border-left:3px solid var(--accent);padding:6px 0 6px 20px;color:var(--tx-2);font-size:.95rem;max-width:64ch}
+.footnote{font-size:.76rem;color:var(--tx-3);line-height:1.5;margin-top:10px}
+
+/* image band */
+.band{position:relative;margin:0 calc(50% - 50vw);overflow:hidden;border-block:1px solid var(--line);background:var(--ink)}
+.band .inner{position:relative;z-index:2;max-width:1180px;margin:0 auto;padding:clamp(40px,7vw,86px) clamp(20px,5vw,64px)}
+.band .eb{font-family:"JetBrains Mono";font-size:.66rem;letter-spacing:.24em;text-transform:uppercase;color:var(--azure-hi)}
+.band h3{color:#fff;font-size:clamp(1.6rem,3.6vw,2.6rem);max-width:22ch;margin-top:12px}
+.band p{color:var(--tx-on-dark-2);max-width:60ch;margin-top:12px}
+.band canvas{position:absolute;inset:0;opacity:.4}
+.shot{margin:26px 0 6px;border:1px solid var(--line-strong);box-shadow:0 20px 60px rgba(0,0,0,.5);max-width:920px;background:#F2EFE7}
+.shot img{width:100%;display:block}
+
+/* ways to participate */
+.ways{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:760px){.ways{grid-template-columns:1fr}}
+.way{border:1px solid var(--line);background:var(--surface);padding:22px;box-shadow:var(--shadow)}
+.way .n{font-family:"JetBrains Mono";font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-ink)}
+.way h4{font-size:1.15rem;margin:8px 0 8px}
+.way p{font-size:.86rem;color:var(--tx-2)}
+.way .eq{margin-top:12px;font-family:"JetBrains Mono";font-size:.72rem;color:var(--tx-3)}
+
+#themeBtn{position:fixed;right:18px;top:14px;z-index:35;background:var(--surface);border:1px solid var(--line-strong);color:var(--tx-2);padding:7px 13px;font-size:.72rem;font-family:"JetBrains Mono";box-shadow:var(--shadow)}
+
+footer{border-top:1px solid var(--line);padding:44px 0 70px;color:var(--tx-3);font-size:.8rem;line-height:1.6}
+footer .conf{font-family:"JetBrains Mono";font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--tx-2);margin-bottom:14px}
+
+svg text{font-family:"JetBrains Mono";fill:var(--tx-3)}
+.axis-lbl{font-size:11px}
+.tip{position:fixed;pointer-events:none;z-index:60;background:var(--panel-ink);color:var(--tx-on-dark);border:1px solid var(--line-strong);padding:9px 12px;font-size:.78rem;box-shadow:0 8px 24px rgba(0,0,0,.4);opacity:0;transition:opacity .12s;max-width:230px}
+.tip .tt{font-family:"JetBrains Mono";font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--azure-hi);margin-bottom:3px}
+.tip .tv{font-family:"JetBrains Mono";font-weight:600}
+</style>
+</head>
+<body class="locked">
+
+<div id="gate">
+  <canvas id="gateCanvas"></canvas><div class="veil"></div>
+  <div class="card">
+    <div class="mark">Simpli<b>ment</b></div>
+    <div class="kicker">Confidential Investment Memorandum</div>
+    <p>Prepared for prospective investors and strategic partners under the Mutual NDA. Enter your access code.</p>
+    <form class="field" id="gateForm" autocomplete="off">
+      <input id="pw" type="password" placeholder="Access code" aria-label="Access code" />
+      <button type="submit">Enter</button>
+    </form>
+    <div class="err" id="gateErr" role="alert"></div>
+    <div class="hint">RedShift Holdings · Opportunity B · By invitation only</div>
+  </div>
+</div>
+
+<button id="themeBtn" aria-label="Toggle theme">◐ Theme</button>
+<nav class="rail" aria-label="Contents"><ol id="railList"></ol></nav>
+
+<div id="shell">
+  <!-- HERO -->
+  <header id="hero">
+    <canvas id="heroCanvas"></canvas><div class="veil"></div>
+    <div class="wrap">
+      <div class="topbar">
+        <div class="brand">Simpli<b>ment</b></div>
+        <div class="tag">RedShift Holdings · Opportunity B<br>Software Portfolio · Pre-Revenue</div>
+      </div>
+      <div class="hero-body">
+        <div class="eyebrow" style="color:var(--azure-hi);margin-bottom:22px">The Investment Case</div>
+        <h1>The operating system for the <em>WordPress economy.</em></h1>
+        <p class="sub">Twenty shippable software assets on one control plane — a 12-module suite, four bolt-ons, and four industry verticals — built and ready to take national while the window to win the WordPress installed base is still open.</p>
+        <div class="topline">
+          <div class="cell"><div class="k">Seed Raise</div><div class="v">$1.35<span class="u">M</span></div></div>
+          <div class="cell"><div class="k">Shippable Assets</div><div class="v">20</div></div>
+          <div class="cell"><div class="k">Yr-3 ARR Target</div><div class="v">$2.4<span class="u">M</span></div></div>
+          <div class="cell val"><div class="k">Investor Equity</div><div class="v">≤40<span class="u">%</span></div></div>
+        </div>
+      </div>
+      <div class="scroll"><span class="ln"></span> Scroll the thesis</div>
+    </div>
+  </header>
+
+  <!-- 01 TIMING -->
+  <section id="s-why">
+    <div class="sec-head">
+      <div class="eyebrow"><span class="idx">01 —</span> The Timing Thesis</div>
+      <h2>A closing window, and the assets already built to take it.</h2>
+      <p class="lead">WordPress still powers roughly <em>two-fifths of the web</em>. Its owners are drowning in overlapping SaaS subscriptions and want one integrated, own-your-data suite on infrastructure they already run. The opportunity is to win that installed base <em>now</em> — before the slow migration off WordPress accelerates. The product is built; the capital buys national reach.</p>
+    </div>
+    <div class="kpi-grid" id="kpiGrid"></div>
+    <div class="callout" style="margin-top:30px">This is not a bet on a founder building software. Twenty assets are already shippable. The raise funds one thing: <b style="color:var(--tx)">getting to market at national scale, fast</b> — sales, marketing, and finishing the industry verticals to MVP.</div>
+  </section>
+
+  <!-- BAND -->
+  <div class="band"><canvas id="bandCanvas"></canvas><div class="inner">
+    <div class="eb">One control plane</div>
+    <h3>Anyone can build a CRM. The moat is the coherent system.</h3>
+    <p>SS Hub deploys, licenses, themes, and AI-brokers across every module and every customer site from one place — a genuine operational moat that is expensive and slow to replicate, whatever AI does to the cost of code.</p>
+  </div></div>
+
+  <!-- 02 PORTFOLIO -->
+  <section id="s-folio">
+    <div class="sec-head">
+      <div class="eyebrow"><span class="idx">02 —</span> The Portfolio &amp; IP</div>
+      <h2>Fourteen-plus assets, each engineered to <em>stand alone.</em></h2>
+      <p class="lead">A 12-module operations platform, four standalone bolt-ons, and a set of vertical "industry" products — each independently sellable, supporting a whole-entity outcome or a sum-of-the-parts exit.</p>
+    </div>
+    <div class="folio-h"><span class="t">SimpleSuite — 12-module platform</span><span class="ln"></span></div>
+    <div class="folio" id="folioModules"></div>
+    <div class="folio-h"><span class="t">Four bolt-ons — sold à la carte</span><span class="ln"></span></div>
+    <div class="folio" id="folioPlugins"></div>
+    <div class="folio-h"><span class="t">Industry verticals — premium acquisition multiples</span><span class="ln"></span></div>
+    <div class="folio" id="folioVerticals"></div>
+    <p class="footnote" style="margin-top:16px"><span style="color:var(--good)">●</span> Shipped / live &nbsp; <span style="color:var(--gold)">●</span> Building &nbsp; <span style="color:var(--tx-3)">●</span> Planned / MVP-stage</p>
+  </section>
+
+  <!-- PRODUCT PROOF BAND -->
+  <div class="band" style="background:var(--ink-2)"><div class="inner">
+    <div class="eb">Built, not slideware</div>
+    <h3>This is the actual control plane — running today.</h3>
+    <div class="shot"><img src="assets/ss-hub-ui.png" alt="SimpleSuite Hub control plane — live product UI" loading="lazy"></div>
+    <p>SS Hub on a live site: guided setup, module management (“8 of 8 active”), connections to Drive, GitHub, AI &amp; Stripe, and one-place configuration for the entire fleet.</p>
+  </div></div>
+
+  <!-- 03 BUSINESS MODEL -->
+  <section id="s-model">
+    <div class="sec-head">
+      <div class="eyebrow"><span class="idx">03 —</span> Business Model</div>
+      <h2>Five revenue lines on a low-cost distribution rail.</h2>
+      <p class="lead">WordPress plus a Merchant-of-Record storefront (Freemius) gives global, low-friction distribution — billing, tax, and licensing handled by the rail, with no bespoke billing or hosting stack to build.</p>
+    </div>
+    <div class="grid-3-2">
+      <div class="panel">
+        <h3>Recurring revenue build</h3>
+        <div class="ph-sub">Recognized revenue by stream · Year 1 → Year 3</div>
+        <div id="revChart"></div>
+        <div class="legend" id="revLegend"></div>
+      </div>
+      <div class="panel ink">
+        <h3>Distribution economics</h3>
+        <div class="ph-sub" style="margin-bottom:14px">Why the model compounds</div>
+        <div class="drow"><span class="lbl" style="color:var(--tx-on-dark-2)">Gross margin</span><span class="val" style="color:#fff">~80%</span></div>
+        <div class="drow"><span class="lbl" style="color:var(--tx-on-dark-2)">Distribution</span><span class="val" style="color:#fff">Freemius MoR</span></div>
+        <div class="drow"><span class="lbl" style="color:var(--tx-on-dark-2)">Channel multiplier</span><span class="val" style="color:#fff">Agency fleet</span></div>
+        <div class="drow"><span class="lbl" style="color:var(--tx-on-dark-2)">Upsell</span><span class="val" style="color:#fff">Prosets + verticals</span></div>
+        <p class="card-note" style="color:var(--tx-on-dark-2);margin-top:16px">Suite &amp; plugin subscriptions, paid design Prosets, premium vertical products, InsightMent engine licensing, and paid done-for-you setup — five lines, one codebase family.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 FINANCIAL MODEL -->
+  <section id="s-fin">
+    <div class="sec-head">
+      <div class="eyebrow"><span class="idx">04 —</span> The Financial Model</div>
+      <h2>Run the national-growth scenario.</h2>
+      <p class="lead">A three-year recurring-revenue build to a <em>$2.4M ARR</em> run-rate. Push the national go-to-market harder and the curve steepens — model it live. All figures illustrative, assumption-driven, pre-revenue.</p>
+    </div>
+    <div class="grid-3-2">
+      <div class="panel">
+        <h3>ARR trajectory</h3>
+        <div class="ph-sub">Year-end annual recurring revenue run-rate</div>
+        <div id="arrChart"></div>
+        <div class="seg" role="group" aria-label="Scenario" style="margin-top:18px">
+          <button id="scBase" class="on">Base plan</button>
+          <button id="scNat">National push</button>
+        </div>
+        <span style="font-size:.78rem;color:var(--tx-3);margin-left:12px" id="scNote"></span>
+      </div>
+      <div class="panel ink">
+        <h3>Run-rate at Year 3</h3>
+        <div class="ph-sub">On the selected scenario</div>
+        <div class="out-grid" style="border-color:var(--line)">
+          <div class="o" style="background:var(--ink-2)"><div class="k">ARR run-rate</div><div class="v" id="oArr" style="color:var(--azure-hi)">$—</div><div class="sub" style="color:var(--tx-on-dark-2)">exit-year recurring</div></div>
+          <div class="o" style="background:var(--ink-2)"><div class="k">MRR</div><div class="v" id="oMrr" style="color:#fff">$—</div><div class="sub" style="color:var(--tx-on-dark-2)">monthly recurring</div></div>
+          <div class="o" style="background:var(--ink-2)"><div class="k">Implied EV (4× ARR)</div><div class="v" id="oEv" style="color:var(--gold-hi)">$—</div><div class="sub" style="color:var(--tx-on-dark-2)">software multiple</div></div>
+          <div class="o" style="background:var(--ink-2)"><div class="k">Gross margin</div><div class="v" id="oGm" style="color:#fff">~80%</div><div class="sub" style="color:var(--tx-on-dark-2)">software economics</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 RAISE -->
+  <section id="s-raise">
+    <div class="sec-head">
+      <div class="eyebrow"><span class="idx">05 —</span> The Raise &amp; Use of Funds</div>
+      <h2>What it takes to get to market — and the verticals to MVP.</h2>
+      <p class="lead">The seed funds a national go-to-market and finishes the industry verticals to MVP. Set the raise and watch runway and allocation respond.</p>
+    </div>
+    <div class="grid2">
+      <div class="panel">
+        <h3>Structure the round</h3>
+        <div class="ph-sub">Adjust the raise and monthly burn</div>
+        <div class="field-row"><label>Seed raise</label><div class="inp"><span>$</span><input type="number" id="raise" value="1350000" step="50000"></div></div>
+        <div class="field-row"><label>Monthly operating burn</label><div class="inp"><span>$</span><input type="number" id="burn" value="75000" step="1000"></div></div>
+        <div class="field-row"><label>Go-to-market weighting</label><div class="inp"><input type="number" id="gtmPct" value="30" step="1"><span>%</span></div></div>
+        <h3 style="margin-top:26px">Use of funds</h3>
+        <div id="uofTable"></div>
+      </div>
+      <div class="panel">
+        <h3>Allocation &amp; runway</h3>
+        <div class="ph-sub">Where the capital goes and how long it lasts</div>
+        <div id="uofChart"></div>
+        <div class="out-grid" style="margin-top:20px">
+          <div class="o"><div class="k">Runway</div><div class="v num" id="oRunway">—</div><div class="sub">at this burn</div></div>
+          <div class="o"><div class="k">To national launch + 2 vertical MVPs</div><div class="v num" id="oReach" style="font-size:1.4rem">—</div><div class="sub">plan milestone</div></div>
+        </div>
+        <div class="verdict" id="raiseVerdict"><span class="badge">Runway</span><span id="raiseTxt">—</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 IP VALUE -->
+  <section id="s-ip">
+    <div class="sec-head">
+      <div class="eyebrow"><span class="idx">06 —</span> The Value of the IP</div>
+      <h2>Not replacement cost — <em>earning potential.</em></h2>
+      <p class="lead">AI is collapsing the cost of writing code, which makes "cost to rebuild" the wrong measure. The value is what the portfolio can earn once established, and the synthesis a competitor cannot shortcut. Set the multiple.</p>
+    </div>
+    <div class="grid-3-2">
+      <div class="panel">
+        <h3>Mature ARR potential at scale</h3>
+        <div class="ph-sub">Illustrative recurring revenue each asset line can support</div>
+        <div id="ipChart"></div>
+      </div>
+      <div class="panel ink">
+        <h3>Implied enterprise value</h3>
+        <div class="ph-sub">Mature ARR potential × software multiple</div>
+        <div class="control" style="margin-top:6px">
+          <div class="top"><label style="color:#fff">ARR multiple</label><span class="out" id="multOut" style="color:var(--azure-hi)">4.0×</span></div>
+          <input type="range" id="multSlider" min="3" max="5" value="4" step="0.5">
+          <div class="desc" style="color:var(--tx-on-dark-2)">3–5× ARR, with upside at the higher multiples typical of vertical SaaS.</div>
+        </div>
+        <div class="out-grid" style="margin-top:16px;border-color:var(--line)">
+          <div class="o" style="background:var(--ink-2)"><div class="k">Mature ARR potential</div><div class="v" style="color:#fff">$7–16M</div><div class="sub" style="color:var(--tx-on-dark-2)">across three asset lines</div></div>
+          <div class="o" style="background:var(--ink-2)"><div class="k">Implied EV range</div><div class="v" id="ipEv" style="color:var(--gold-hi)">$—</div><div class="sub" style="color:var(--tx-on-dark-2)">execution-dependent</div></div>
+        </div>
+        <p class="card-note" style="color:var(--tx-on-dark-2);margin-top:16px">The moat sits <b style="color:#fff">above</b> the multiple: product vision, years of design craft, and the synthesis that makes many products interlock as one system — bought as a ready-made platform, not a pile of code.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 WAYS -->
+  <section id="s-ways">
+    <div class="sec-head">
+      <div class="eyebrow"><span class="idx">07 —</span> Ways to Participate</div>
+      <h2>A stake in the platform — <em>up to 40%.</em></h2>
+      <p class="lead">Simpliment retains founder control. The company is offering a minority position of <em>up to 40%</em> — a deliberate, disciplined round for a portfolio this far built, with a commercial or hybrid on-ramp for partners who want to prove fit first.</p>
+    </div>
+    <div class="ways">
+      <div class="way"><div class="n">Model 1</div><h4>Commercial alliance</h4><p>Become a customer, channel, reseller, white-label or OEM partner. Establishes mutual value and de-risks a later equity step.</p><div class="eq">Equity — none</div></div>
+      <div class="way"><div class="n">Model 2</div><h4>Partnership + equity</h4><p>The commercial relationship plus a minority stake, revenue-share-for-equity, warrants, or a JV — shared upside.</p><div class="eq">Equity — minority</div></div>
+      <div class="way" style="border-color:var(--accent)"><div class="n" style="color:var(--accent-ink)">Model 3</div><h4>Growth investment</h4><p>A significant minority position — <b>up to 40%</b> — with sum-of-the-parts optionality across the tools. Founder retains control; the raise fuels the national push.</p><div class="eq">Equity — up to 40%</div></div>
+    </div>
+    <div class="callout" style="margin-top:30px">Priced for a build this complete, and held to a minority — a commercial alliance is still the fastest, lowest-risk way to begin, and proves fit ahead of the equity conversation.</div>
+  </section>
+
+  <footer>
+    <div class="conf">Strictly Confidential — Subject to Mutual NDA</div>
+    <p>This memorandum has been prepared by RedShift Holdings solely to assist the recipient in evaluating a possible investment, acquisition, partnership, or commercial relationship involving Simpliment Software. It is furnished on a confidential basis. Nothing herein constitutes an offer to sell or a solicitation to buy any security, nor investment, legal, tax, or accounting advice. Simpliment Software is a pre-revenue enterprise; all financial figures are illustrative, assumption-driven projections and may differ materially from actual results. Recipients should conduct independent diligence.</p>
+    <p style="margin-top:16px;color:var(--tx-2)">© RedShift Holdings · Simpliment Software · Prepared <span id="prepDate">2026</span></p>
+  </footer>
+</div>
+<div class="tip" id="tip"></div>
+
+<script>
+/* ============================ DATA (from Simpliment CIM / ProForma, illustrative) ============================ */
+const DATA={
+  meta:{prepared:"July 2026", code:"simpliment2026"},
+  kpis:[
+    {k:"WordPress share of web",v:"~40%",d:"the installed base to win",chip:"distribution",cls:"flat"},
+    {k:"Shippable assets built",v:"20",d:"12 suite · 4 bolt-ons · 4 verticals",chip:"pre-revenue",cls:"up"},
+    {k:"Gross margin",v:"~80%",d:"software / MoR economics",chip:"scalable",cls:"up"},
+    {k:"Seed to national launch",v:"$1.35M",d:"18-month runway",chip:"the ask",cls:"flat"}
+  ],
+  modules:[
+    {nm:"SS Hub",st:"live",ds:"Central control plane — fleet deploy, licensing, AI broker, pricing engine. The keystone asset.",cls:"Keystone"},
+    {nm:"SS Identity",st:"live",ds:"Access & identity — 3-tier permissions, persona dashboards, social login, demo mode.",cls:""},
+    {nm:"SS Launch",st:"live",ds:"AI site-builder — enrich→plan→assemble engine + HTML→tree Convert engine.",cls:""},
+    {nm:"SS Theme / Chrome",st:"live",ds:"Theming & site-chrome token system consumed by every module.",cls:""},
+    {nm:"SS Fleet",st:"live",ds:"Fleet console, support/ticketing, agency deployment across many client installs.",cls:""},
+    {nm:"SS Store",st:"build",ds:"Native commerce — Stripe embedded checkout, webhook fulfillment, entitlement/seat bridge.",cls:"New"},
+    {nm:"CourseForge",st:"build",ds:"Course platform — build, sell & run courses; authoring pipeline, media ingest, AI drafting.",cls:"Into suite"},
+    {nm:"SS Progress",st:"build",ds:"Coaching / growth app — coach console; integrates Identity + ASK insights.",cls:""},
+    {nm:"SS Events",st:"build",ds:"Event & booking management — scheduling, ICS delivery, coach booking.",cls:""},
+    {nm:"SS Membership",st:"build",ds:"Membership & member-type model; gating and entitlements across the suite.",cls:""},
+    {nm:"SS Pulse",st:"build",ds:"Analytics & monitoring — surfaces health and engagement signals.",cls:""},
+    {nm:"SS Workspace",st:"plan",ds:"Team collaboration surface; shared workspace features across modules.",cls:""}
+  ],
+  plugins:[
+    {nm:"InsightMent",st:"live",ds:"Assessment engine — validated instruments, multi-program, scoring core. Licensed to The ASK System.",cls:"Engine"},
+    {nm:"ActionStudio",st:"build",ds:"Lightweight CRM / revenue engine — contacts, deals, tasks, commissions, referral attribution.",cls:""},
+    {nm:"CashFlow",st:"build",ds:"CFO-grade finance — live P&L, multi-entity, AI-categorized reconciliation, QuickBooks sync.",cls:""},
+    {nm:"Simplitory",st:"plan",ds:"Inventory + PIM + catalog/storefront — RMS/CSV/Google connectors, source-agnostic PIM into native WordPress.",cls:"New"}
+  ],
+  verticals:[
+    {nm:"Simplay",st:"plan",ds:"Restaurants / hospitality — real-time FOH/BOH command center: service flow, ticket times, turnover.",cls:"Vertical"},
+    {nm:"AccuFlow",st:"plan",ds:"Medical / dental — clinic operational truth: patient flow, room utilization, provider productivity.",cls:"Vertical"},
+    {nm:"DoneRight",st:"plan",ds:"Field services — route, dispatch, complete, invoice for any crew in the field.",cls:"Vertical"},
+    {nm:"Campliment",st:"plan",ds:"Sport & recreation camps — track & field focus; philanthropic mission (structure to confirm).",cls:"Vertical"}
+  ],
+  // revenue build (recognized $), from ProForma §12.2
+  streams:[
+    {k:"Subscriptions",  c:"--azure", y:[80000,430000,1340000]},
+    {k:"Industry verticals", c:"--blue", y:[20000,120000,520000]},
+    {k:"Services (setup/agency)", c:"--violet", y:[30000,90000,210000]},
+    {k:"Add-ons / Prosets", c:"--teal", y:[10000,30000,80000]},
+    {k:"Engine licensing", c:"--rose", y:[5000,25000,70000]}
+  ],
+  arr:{ base:[150000,800000,2400000], mrr:[12500,67000,200000] },   // §12.1 ARR / MRR targets
+  natMult:[1.0,1.35,1.6],   // national-push uplift on Y1/Y2/Y3 ARR
+  uof:[  // §12.3 use of funds (base $1.35M)
+    {k:"Product & engineering (4 FTE)", base:720000, c:"--azure", note:"Ship plugins to GA; verticals to MVP; harden platform"},
+    {k:"Go-to-market & marketing", base:270000, c:"--teal", note:"National funnel, agency channel, content, launch"},
+    {k:"G&A, legal & structuring", base:180000, c:"--violet", note:"Sub-entity formation, IP assignments, inter-co license"},
+    {k:"Infrastructure, AI & tooling", base:90000, c:"--blue", note:"Hosting, CI, AI broker overhead, security"},
+    {k:"Contingency", base:90000, c:"--rose", note:"Buffer (~7%)"}
+  ],
+  ip:[
+    {k:"SimpleSuite platform + plugins", lo:3000000, hi:6000000, c:"--azure"},
+    {k:"Industry verticals", lo:3000000, hi:9000000, c:"--blue"},
+    {k:"InsightMent engine licensing", lo:500000, hi:1500000, c:"--gold"}
+  ]
+};
+
+/* helpers */
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const fmtK=n=>{const a=Math.abs(n);if(a>=1e6)return '$'+(n/1e6).toFixed(a>=1e7?1:2)+'M';if(a>=1e3)return '$'+Math.round(n/1e3)+'K';return '$'+Math.round(n);};
+const fmt=n=>'$'+Math.round(n).toLocaleString('en-US');
+const pct=(n,d=0)=>(n*100).toFixed(d)+'%';
+const css=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const TIP=$('#tip');
+function showTip(h,x,y){TIP.innerHTML=h;TIP.style.opacity=1;TIP.style.left=(x+14)+'px';TIP.style.top=(y+14)+'px';}
+function hideTip(){TIP.style.opacity=0;}
+function wireTips(b){b.querySelectorAll('[data-tt]').forEach(el=>{el.style.cursor='crosshair';el.addEventListener('mousemove',e=>showTip(`<div class="tt">${el.dataset.tt}</div><div class="tv">${el.dataset.tv}</div>`,e.clientX,e.clientY));el.addEventListener('mouseleave',hideTip);});}
+
+/* ============================ generative "control plane" canvas ============================ */
+function fleet(canvas,opts){
+  const c=canvas.getContext('2d'); let W,H,nodes,hub,raf,t=0;
+  const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  const N=opts.n||26;
+  function size(){W=canvas.width=canvas.offsetWidth*devicePixelRatio;H=canvas.height=canvas.offsetHeight*devicePixelRatio;init();}
+  function init(){
+    hub={x:W*(opts.hubx||0.5),y:H*(opts.huby||0.5)};
+    nodes=[];for(let i=0;i<N;i++){const a=Math.random()*Math.PI*2,r=(0.12+Math.random()*0.42)*Math.min(W,H);
+      nodes.push({a,r,base:r,x:0,y:0,sp:(0.0002+Math.random()*0.0006)*(Math.random()<.5?-1:1),ph:Math.random()*6.28,sz:(Math.random()*2+1.4)*devicePixelRatio});}
+  }
+  function draw(){
+    t++; c.clearRect(0,0,W,H);
+    const az='#7C90BE', gd='#D4740E';   // cool steel module nodes · warm brand-orange keystone hub
+    nodes.forEach(n=>{n.a+=n.sp; const r=n.base+Math.sin(t*0.01+n.ph)*8*devicePixelRatio; n.x=hub.x+Math.cos(n.a)*r; n.y=hub.y+Math.sin(n.a)*r*0.62;});
+    // links to hub
+    nodes.forEach((n,i)=>{const d=Math.hypot(n.x-hub.x,n.y-hub.y);const al=Math.max(0,0.5-d/(Math.min(W,H)*0.9));
+      c.strokeStyle=`rgba(212,116,14,${al*0.55})`;c.lineWidth=1*devicePixelRatio;c.beginPath();c.moveTo(hub.x,hub.y);c.lineTo(n.x,n.y);c.stroke();
+      // neighbor links
+      const m=nodes[(i+1)%nodes.length];c.strokeStyle=`rgba(124,144,190,${al*0.2})`;c.beginPath();c.moveTo(n.x,n.y);c.lineTo(m.x,m.y);c.stroke();});
+    // nodes
+    nodes.forEach(n=>{c.fillStyle=az;c.globalAlpha=.8;c.fillRect(n.x-n.sz,n.y-n.sz,n.sz*2,n.sz*2);c.globalAlpha=1;});
+    // hub (keystone)
+    const pr=(6+Math.sin(t*0.04)*1.5)*devicePixelRatio;
+    c.fillStyle=gd;c.fillRect(hub.x-pr,hub.y-pr,pr*2,pr*2);
+    c.strokeStyle=`rgba(212,116,14,.55)`;c.lineWidth=1.5*devicePixelRatio;c.strokeRect(hub.x-pr*2,hub.y-pr*2,pr*4,pr*4);
+    if(!reduce)raf=requestAnimationFrame(draw);
+  }
+  size();draw();addEventListener('resize',()=>{cancelAnimationFrame(raf);size();draw();});
+}
+
+/* ============================ renders ============================ */
+function renderKpis(){$('#kpiGrid').innerHTML=DATA.kpis.map((c,i)=>`<div class="kpi ${i===3?'val':''}"><div class="k">${c.k}</div><div class="v">${c.v}</div><div class="d">${c.d} <span class="chip ${c.cls}">${c.chip}</span></div></div>`).join('');}
+function modCard(m){return `<div class="mod"><div class="nm"><span class="st ${m.st}"></span>${m.nm}</div><div class="ds">${m.ds}</div>${m.cls?`<div class="cls">${m.cls}</div>`:''}</div>`;}
+function renderFolio(){$('#folioModules').innerHTML=DATA.modules.map(modCard).join('');$('#folioPlugins').innerHTML=DATA.plugins.map(modCard).join('');$('#folioVerticals').innerHTML=DATA.verticals.map(modCard).join('');}
+
+function renderRevChart(){
+  const box=$('#revChart'),W=box.clientWidth||520,H=300,P={l:52,r:14,t:16,b:34};
+  const yrs=['Year 1','Year 2','Year 3'],iw=W-P.l-P.r,ih=H-P.t-P.b;
+  const totals=[0,1,2].map(i=>DATA.streams.reduce((a,s)=>a+s.y[i],0));
+  const maxV=Math.max(...totals)*1.12;
+  const x=i=>P.l+iw*(i+0.5)/3, bw=Math.min(90,iw/3*0.5),yb=v=>P.t+ih-(v/maxV)*ih;
+  let g='';
+  for(let i=0;i<=4;i++){const gy=P.t+ih*i/4,val=maxV*(1-i/4);g+=`<line x1="${P.l}" y1="${gy}" x2="${W-P.r}" y2="${gy}" stroke="${css('--line')}"/>`;g+=`<text x="${P.l-8}" y="${gy+4}" text-anchor="end" class="axis-lbl">${fmtK(val)}</text>`;}
+  yrs.forEach((yr,i)=>{let acc=0;const bx=x(i)-bw/2;
+    DATA.streams.forEach(s=>{const h=(s.y[i]/maxV)*ih;const y=yb(acc+s.y[i]);g+=`<rect x="${bx}" y="${y}" width="${bw}" height="${Math.max(0,h-1.5)}" fill="${css(s.c)}" data-tt="${yr} · ${s.k}" data-tv="${fmt(s.y[i])}"></rect>`;acc+=s.y[i];});
+    g+=`<text x="${x(i)}" y="${H-12}" text-anchor="middle" class="axis-lbl" style="fill:var(--tx-2)">${yr}</text>`;
+    g+=`<text x="${x(i)}" y="${yb(acc)-8}" text-anchor="middle" class="axis-lbl" style="fill:var(--tx);font-weight:600">${fmtK(acc)}</text>`;});
+  box.innerHTML=`<svg viewBox="0 0 ${W} ${H}" width="100%" height="${H}" role="img" aria-label="Revenue build by stream">${g}</svg>`;
+  $('#revLegend').innerHTML=DATA.streams.map(s=>`<div class="li"><span class="sw" style="background:${css(s.c)}"></span>${s.k}</div>`).join('');
+  wireTips(box);
+}
+
+let scenario='base';
+function arrSeries(){return scenario==='nat'?DATA.arr.base.map((v,i)=>v*DATA.natMult[i]):DATA.arr.base.slice();}
+function renderArrChart(){
+  const box=$('#arrChart'),W=box.clientWidth||520,H=280,P={l:54,r:16,t:20,b:34};
+  const base=DATA.arr.base, nat=DATA.arr.base.map((v,i)=>v*DATA.natMult[i]);
+  const iw=W-P.l-P.r,ih=H-P.t-P.b,maxV=Math.max(...nat)*1.1;
+  const x=i=>P.l+iw*i/2, yb=v=>P.t+ih-(v/maxV)*ih;
+  let g='';
+  for(let i=0;i<=4;i++){const gy=P.t+ih*i/4,val=maxV*(1-i/4);g+=`<line x1="${P.l}" y1="${gy}" x2="${W-P.r}" y2="${gy}" stroke="${css('--line')}"/>`;g+=`<text x="${P.l-8}" y="${gy+4}" text-anchor="end" class="axis-lbl">${fmtK(val)}</text>`;}
+  function area(series,color,fillA){
+    const pts=series.map((v,i)=>[x(i),yb(v)]);
+    const d=pts.map((p,i)=>(i?'L':'M')+p[0]+' '+p[1]).join(' ');
+    let s=`<path d="${d} L ${x(2)} ${yb(0)} L ${x(0)} ${yb(0)} Z" fill="${color}" opacity="${fillA}"/>`;
+    s+=`<path d="${d}" fill="none" stroke="${color}" stroke-width="2.5"/>`;
+    pts.forEach((p,i)=>{s+=`<circle cx="${p[0]}" cy="${p[1]}" r="4.5" fill="${css('--chart-surface')}" stroke="${color}" stroke-width="2.5" data-tt="${['Year 1','Year 2','Year 3'][i]} ARR" data-tv="${fmtK(series[i])}"></circle>`;});
+    return s;
+  }
+  if(scenario==='nat') g+=area(base,css('--tx-3'),0.05);
+  g+=area(scenario==='nat'?nat:base, css('--azure'), 0.14);
+  const sel=arrSeries();
+  sel.forEach((v,i)=>{g+=`<text x="${x(i)}" y="${yb(v)-12}" text-anchor="middle" class="axis-lbl" style="fill:var(--accent-ink);font-weight:600">${fmtK(v)}</text>`;});
+  ['Year 1','Year 2','Year 3'].forEach((yr,i)=>g+=`<text x="${x(i)}" y="${H-12}" text-anchor="middle" class="axis-lbl" style="fill:var(--tx-2)">${yr}</text>`);
+  box.innerHTML=`<svg viewBox="0 0 ${W} ${H}" width="100%" height="${H}" role="img" aria-label="ARR trajectory">${g}</svg>`;
+  wireTips(box);
+  // outputs
+  const arr3=sel[2], mrr3=scenario==='nat'?DATA.arr.mrr[2]*DATA.natMult[2]:DATA.arr.mrr[2];
+  $('#oArr').textContent=fmtK(arr3);$('#oMrr').textContent=fmtK(mrr3);$('#oEv').textContent=fmtK(arr3*4);
+  $('#scNote').textContent=scenario==='nat'?'+60% Yr-3 ARR on an aggressive national funnel':'the illustrative base plan';
+}
+
+function renderUof(){
+  const raise=+$('#raise').value, burn=+$('#burn').value, gtm=+$('#gtmPct').value/100;
+  // scale allocation: keep base proportions but shift toward GTM by the weighting delta
+  const baseTot=DATA.uof.reduce((a,u)=>a+u.base,0);
+  const gtmBase=DATA.uof.find(u=>u.k.startsWith('Go-to-market')).base/baseTot; // ~0.20
+  const shift=gtm-gtmBase;
+  const alloc=DATA.uof.map(u=>{let frac=u.base/baseTot; if(u.k.startsWith('Go-to-market'))frac=gtm; else frac=frac*(1-Math.max(0,shift)/(1-gtmBase)); return {...u,amt:frac*raise,frac};});
+  const tot=alloc.reduce((a,u)=>a+u.amt,0);
+  // normalize
+  alloc.forEach(u=>u.amt=u.amt/tot*raise);
+  $('#uofTable').innerHTML=alloc.map(u=>`<div class="drow"><span class="lbl">${u.k}<div style="font-size:.72rem;color:var(--tx-3)">${u.note}</div></span><span class="val">${fmt(u.amt)}<span class="pct">${pct(u.amt/raise)}</span></span></div>`).join('')+`<div class="drow tot"><span class="lbl">Total raise</span><span class="val">${fmt(raise)}</span></div>`;
+  // donut
+  const box=$('#uofChart'),S=210,cx=S/2,cy=S/2,r=78,ir=48;let ang=-Math.PI/2,g='';
+  alloc.forEach(u=>{const a2=ang+(u.amt/raise)*Math.PI*2;const x1=cx+Math.cos(ang)*r,y1=cy+Math.sin(ang)*r,x2=cx+Math.cos(a2)*r,y2=cy+Math.sin(a2)*r;const xi1=cx+Math.cos(ang)*ir,yi1=cy+Math.sin(ang)*ir,xi2=cx+Math.cos(a2)*ir,yi2=cy+Math.sin(a2)*ir;const large=(a2-ang)>Math.PI?1:0;
+    g+=`<path d="M ${x1} ${y1} A ${r} ${r} 0 ${large} 1 ${x2} ${y2} L ${xi2} ${yi2} A ${ir} ${ir} 0 ${large} 0 ${xi1} ${yi1} Z" fill="${css(u.c)}" data-tt="${u.k}" data-tv="${fmt(u.amt)} · ${pct(u.amt/raise)}"></path>`;ang=a2;});
+  const runway=Math.floor(raise/burn);
+  box.innerHTML=`<div style="display:flex;gap:20px;align-items:center;flex-wrap:wrap"><svg viewBox="0 0 ${S} ${S}" width="180" height="180">${g}<text x="${cx}" y="${cy-4}" text-anchor="middle" style="fill:var(--tx);font-family:Fraunces;font-size:20px;font-weight:600">${fmtK(raise)}</text><text x="${cx}" y="${cy+14}" text-anchor="middle" class="axis-lbl">total raise</text></svg>
+    <div style="flex:1;min-width:150px">${alloc.map(u=>`<div class="li" style="display:flex;align-items:center;gap:8px;font-size:.78rem;color:var(--tx-2);padding:3px 0"><span class="sw" style="width:11px;height:11px;background:${css(u.c)}"></span>${u.k.split(' (')[0]} <b style="margin-left:auto;font-family:JetBrains Mono;color:var(--tx)">${pct(u.amt/raise)}</b></div>`).join('')}</div></div>`;
+  wireTips(box);
+  $('#oRunway').textContent=runway+' mo';
+  const reach = runway>=18 && raise>=1200000;
+  $('#oReach').textContent=reach?'Funded':'Tight';
+  $('#oReach').className='v num '+(reach?'good':'warn');
+  const vEl=$('#raiseVerdict'),vt=$('#raiseTxt');let tone,msg;
+  if(runway>=18&&raise>=1200000){tone='good';msg=`${runway} months of runway — funds the national launch and two vertical MVPs with buffer ahead of a Series A.`;}
+  else if(runway>=12){tone='warn';msg=`${runway} months — reaches market but trims the vertical MVP scope or the national push. Consider a larger raise or lower burn.`;}
+  else{tone='crit';msg=`${runway} months — below the plan. Raise more or cut burn to fund GTM and the verticals to MVP.`;}
+  vt.textContent=msg;
+  const c=tone==='good'?'--good':tone==='warn'?'--warn':'--crit';
+  vEl.style.background=`color-mix(in srgb, var(${c}) 12%, transparent)`;vEl.style.borderColor=`color-mix(in srgb, var(${c}) 35%, transparent)`;vEl.style.color=`var(${c})`;vEl.querySelector('.badge').style.background=`var(${c})`;
+}
+
+function renderIp(){
+  const box=$('#ipChart'),W=box.clientWidth||520,H=250,P={l:8,r:8,t:10,b:56};
+  const iw=W-P.l-P.r,ih=H-P.t-P.b,maxV=16000000*1.05;
+  const gap=iw/DATA.ip.length,bw=gap*0.5,yb=v=>P.t+ih-(v/maxV)*ih;
+  let g='';
+  DATA.ip.forEach((it,i)=>{const cx=P.l+gap*i+gap/2;
+    const yl=yb(it.lo),yh=yb(it.hi);
+    g+=`<rect x="${cx-bw/2}" y="${yh}" width="${bw}" height="${yb(0)-yh}" fill="${css(it.c)}" opacity=".22"></rect>`;
+    g+=`<rect x="${cx-bw/2}" y="${yh}" width="${bw}" height="${yl-yh}" fill="${css(it.c)}" data-tt="${it.k}" data-tv="${fmtK(it.lo)}–${fmtK(it.hi)} ARR"></rect>`;
+    g+=`<text x="${cx}" y="${yh-8}" text-anchor="middle" class="axis-lbl" style="fill:var(--tx);font-weight:600">${fmtK(it.hi)}</text>`;
+    g+=`<text x="${cx}" y="${yl+14}" text-anchor="middle" class="axis-lbl" style="fill:var(--tx-3)">${fmtK(it.lo)}</text>`;
+    const words=it.k.split(' ');let lines=[],cur='';words.forEach(w=>{if((cur+w).length>16){lines.push(cur.trim());cur=w+' ';}else cur+=w+' ';});lines.push(cur.trim());
+    lines.slice(0,3).forEach((ln,li)=>g+=`<text x="${cx}" y="${H-P.b+16+li*12}" text-anchor="middle" style="font-size:9.5px;fill:var(--tx-2)">${ln}</text>`);});
+  box.innerHTML=`<svg viewBox="0 0 ${W} ${H}" width="100%" height="${H}" role="img" aria-label="ARR potential by asset line">${g}</svg>`;
+  wireTips(box);
+  updateIpEv();
+}
+function updateIpEv(){const m=+$('#multSlider').value;$('#multOut').textContent=m.toFixed(1)+'×';$('#ipEv').textContent=fmtK(7000000*m)+'–'+fmtK(16000000*m);}
+
+/* rail */
+function buildRail(){
+  const secs=[['s-why','Timing'],['s-folio','Portfolio'],['s-model','Model'],['s-fin','Financials'],['s-raise','The Raise'],['s-ip','IP Value'],['s-ways','Participate']];
+  $('#railList').innerHTML=secs.map((s,i)=>`<li><a href="#${s[0]}" data-id="${s[0]}" aria-label="${s[1]}"><span class="dot"></span><span class="rn">${String(i+1).padStart(2,'0')}</span><span class="rname">${s[1]}</span></a></li>`).join('');
+  const links=$$('.rail a');const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)links.forEach(l=>l.classList.toggle('on',l.dataset.id===e.target.id));});},{rootMargin:'-45% 0px -50% 0px'});
+  secs.forEach(s=>{const el=document.getElementById(s[0]);if(el)obs.observe(el);});
+}
+
+/* theme */
+function initTheme(){$('#themeBtn').addEventListener('click',()=>{const cur=document.documentElement.getAttribute('data-theme');const sys=matchMedia('(prefers-color-scheme:dark)').matches;const now=cur||(sys?'dark':'light');document.documentElement.setAttribute('data-theme',now==='dark'?'light':'dark');rerender();});}
+function rerender(){renderRevChart();renderArrChart();renderUof();renderIp();}
+
+/* gate */
+async function unlock(code){return code.trim().toLowerCase()===DATA.meta.code;}
+function initGate(){const f=$('#gateForm');f.addEventListener('submit',async e=>{e.preventDefault();if(await unlock($('#pw').value)){document.body.classList.remove('locked');$('#gate').style.display='none';boot();}else{$('#gateErr').textContent='Incorrect access code.';$('#pw').value='';$('#pw').focus();}});$('#pw').focus();}
+
+let booted=false;
+function boot(){
+  if(booted)return;booted=true;
+  renderKpis();renderFolio();renderRevChart();renderArrChart();renderUof();renderIp();buildRail();
+  $('#prepDate').textContent=DATA.meta.prepared;
+  fleet($('#heroCanvas'),{n:30,hubx:0.72,huby:0.42});
+  fleet($('#bandCanvas'),{n:16,hubx:0.85,huby:0.5});
+  $('#scBase').addEventListener('click',()=>{scenario='base';$('#scBase').classList.add('on');$('#scNat').classList.remove('on');renderArrChart();});
+  $('#scNat').addEventListener('click',()=>{scenario='nat';$('#scNat').classList.add('on');$('#scBase').classList.remove('on');renderArrChart();});
+  ['raise','burn','gtmPct'].forEach(id=>$('#'+id).addEventListener('input',renderUof));
+  $('#multSlider').addEventListener('input',updateIpEv);
+  let rt;addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(rerender,180);});
+}
+
+fleet($('#gateCanvas'),{n:24,hubx:0.5,huby:0.45});
+initTheme();initGate();
+</script>
+</body>
+</html>
