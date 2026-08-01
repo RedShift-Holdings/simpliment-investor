@@ -215,6 +215,13 @@ input[type=range]::-moz-range-thumb{width:18px;height:18px;background:var(--acce
 .band canvas{position:absolute;inset:0;opacity:.4}
 .shot{margin:26px 0 6px;border:1px solid var(--line-strong);box-shadow:0 20px 60px rgba(0,0,0,.5);max-width:920px;background:#F2EFE7}
 .shot img{width:100%;display:block}
+.shot-row{display:flex;gap:18px;flex-wrap:wrap;margin:8px 0 4px}
+.shot-row .cell{flex:1 1 260px;min-width:260px}
+.shot-row .shot{margin:0;max-width:none}
+.shot-row .cap{font-size:.72rem;color:var(--tx-3);margin-top:8px;font-family:"JetBrains Mono";letter-spacing:.02em}
+.pillar-card h4{font-size:1.05rem;margin-bottom:8px}
+.pillar-card .eb{font-family:"JetBrains Mono";font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--azure-hi);margin-bottom:10px;display:block}
+.pillar-card p{color:var(--tx-2);font-size:.88rem;line-height:1.55}
 
 /* feature panel — search/tags first, cards on demand */
 .feat-panel{margin:26px 0 6px;max-width:920px;border:1px solid var(--line-strong);background:var(--ink-2);box-shadow:0 20px 60px rgba(0,0,0,.5)}
@@ -361,10 +368,51 @@ svg text{font-family:"JetBrains Mono";fill:var(--tx-3)}
     <p>SS Hub on a live site: guided setup, module management (“8 of 8 active”), connections to Drive, GitHub, AI &amp; Stripe, and one-place configuration for the entire fleet.</p>
   </div></div>
 
-  <!-- 03 BUSINESS MODEL -->
+  <!-- 03 AGENCY CHANNEL -->
+  <section id="s-agency">
+    <div class="sec-head">
+      <div class="eyebrow"><span class="idx">03 —</span> The Agency Channel</div>
+      <h2>One agency, an entire book of client sites — <em>from one seat.</em></h2>
+      <p class="lead">The 8–12-subscription sprawl that hits one WordPress owner hits an agency once per client, multiplied across their whole roster. Fleet collapses that into one managed stack across every site the agency runs — the single biggest channel multiplier in the model.</p>
+    </div>
+    <div class="grid2">
+      <div class="panel pillar-card">
+        <span class="eb">Fleet readiness</span>
+        <h4>Deploy anything, manage everything</h4>
+        <p>Individual installs and multisite networks, mixed, from one console — health, version, and package status for every managed property at a glance, with one-click push-to-fleet updates instead of logging into each site.</p>
+      </div>
+      <div class="panel pillar-card">
+        <span class="eb">Agency control</span>
+        <h4>One Hub, every client site</h4>
+        <p>Role-based access per site, per-client branding via the shared Theme/Chrome token system, and centralized module management — an operator sees and acts on the whole roster without context-switching between logins.</p>
+      </div>
+      <div class="panel pillar-card">
+        <span class="eb">Agency pricing</span>
+        <h4>Priced on managed sites, not seats</h4>
+        <p>Power $50 · Performance $100 · Professional $125 per managed site, plus bolt-ons — the same mechanism as the free 7-site tier, just a bigger pool. Deployment count is a contract lever, not a different product: one site or a hundred, same tech.</p>
+      </div>
+      <div class="panel pillar-card">
+        <span class="eb">Scalable with AI</span>
+        <h4>More sites per operator-hour</h4>
+        <p>A shared, BYOK AI broker at the Hub level powers AI-guided setup and AI site-building (describe a page, it's built) across the whole fleet. As AI absorbs the repetitive setup and build work, one agency operator services more client sites per hour — the leverage compounds with roster size.</p>
+      </div>
+    </div>
+    <div class="shot-row" style="margin-top:32px">
+      <div class="cell">
+        <div class="shot"><img src="assets/ss-pulse-view.png" alt="SimpleSuite Pulse — cross-client health snapshot" loading="lazy"></div>
+        <div class="cap">Pulse — one CMO-style snapshot across every client account, urgent decisions ranked automatically</div>
+      </div>
+      <div class="cell">
+        <div class="shot"><img src="assets/ss-hub-wizard.png" alt="SimpleSuite Hub — first-run setup wizard" loading="lazy"></div>
+        <div class="cap">Hub — scans a fresh install and skips everything already done; minutes, not hours, per client</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 BUSINESS MODEL -->
   <section id="s-model">
     <div class="sec-head">
-      <div class="eyebrow"><span class="idx">03 —</span> Business Model</div>
+      <div class="eyebrow"><span class="idx">04 —</span> Business Model</div>
       <h2>Five revenue lines on a low-cost distribution rail.</h2>
       <p class="lead">WordPress plus a Merchant-of-Record storefront (Freemius) gives global, low-friction distribution — billing, tax, and licensing handled by the rail, with no bespoke billing or hosting stack to build.</p>
     </div>
@@ -390,7 +438,7 @@ svg text{font-family:"JetBrains Mono";fill:var(--tx-3)}
   <!-- 04 FINANCIAL MODEL -->
   <section id="s-fin">
     <div class="sec-head">
-      <div class="eyebrow"><span class="idx">04 —</span> The Financial Model</div>
+      <div class="eyebrow"><span class="idx">05 —</span> The Financial Model</div>
       <h2>Run the national-growth scenario.</h2>
       <p class="lead">A three-year recurring-revenue build to a <em>$2.4M ARR</em> run-rate. Push the national go-to-market harder and the curve steepens — model it live. All figures illustrative, assumption-driven, pre-revenue.</p>
     </div>
@@ -421,7 +469,7 @@ svg text{font-family:"JetBrains Mono";fill:var(--tx-3)}
   <!-- 05 RAISE -->
   <section id="s-raise">
     <div class="sec-head">
-      <div class="eyebrow"><span class="idx">05 —</span> The Raise &amp; Use of Funds</div>
+      <div class="eyebrow"><span class="idx">06 —</span> The Raise &amp; Use of Funds</div>
       <h2>What it takes to get to market — and the verticals to MVP.</h2>
       <p class="lead">The seed funds a national go-to-market and finishes the industry verticals to MVP. Set the raise and watch runway and allocation respond.</p>
     </div>
@@ -451,7 +499,7 @@ svg text{font-family:"JetBrains Mono";fill:var(--tx-3)}
   <!-- 06 IP VALUE -->
   <section id="s-ip">
     <div class="sec-head">
-      <div class="eyebrow"><span class="idx">06 —</span> The Value of the IP</div>
+      <div class="eyebrow"><span class="idx">07 —</span> The Value of the IP</div>
       <h2>Not replacement cost — <em>earning potential.</em></h2>
       <p class="lead">AI is collapsing the cost of writing code, which makes "cost to rebuild" the wrong measure. The value is what the portfolio can earn once established, and the synthesis a competitor cannot shortcut. Set the multiple.</p>
     </div>
@@ -481,7 +529,7 @@ svg text{font-family:"JetBrains Mono";fill:var(--tx-3)}
   <!-- 07 WAYS -->
   <section id="s-ways">
     <div class="sec-head">
-      <div class="eyebrow"><span class="idx">07 —</span> Ways to Participate</div>
+      <div class="eyebrow"><span class="idx">08 —</span> Ways to Participate</div>
       <h2>A stake in the platform — <em>up to 40%.</em></h2>
       <p class="lead">Simpliment retains founder control. The company is offering a minority position of <em>up to 40%</em> — a deliberate, disciplined round for a portfolio this far built, with a commercial or hybrid on-ramp for partners who want to prove fit first.</p>
     </div>
@@ -760,7 +808,7 @@ function updateIpEv(){const m=+$('#multSlider').value;$('#multOut').textContent=
 
 /* rail */
 function buildRail(){
-  const secs=[['s-why','Timing'],['s-folio','Portfolio'],['s-model','Model'],['s-fin','Financials'],['s-raise','The Raise'],['s-ip','IP Value'],['s-ways','Participate']];
+  const secs=[['s-why','Timing'],['s-folio','Portfolio'],['s-agency','Agency Channel'],['s-model','Model'],['s-fin','Financials'],['s-raise','The Raise'],['s-ip','IP Value'],['s-ways','Participate']];
   $('#railList').innerHTML=secs.map((s,i)=>`<li><a href="#${s[0]}" data-id="${s[0]}" aria-label="${s[1]}"><span class="dot"></span><span class="rn">${String(i+1).padStart(2,'0')}</span><span class="rname">${s[1]}</span></a></li>`).join('');
   const links=$$('.rail a');const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)links.forEach(l=>l.classList.toggle('on',l.dataset.id===e.target.id));});},{rootMargin:'-45% 0px -50% 0px'});
   secs.forEach(s=>{const el=document.getElementById(s[0]);if(el)obs.observe(el);});
