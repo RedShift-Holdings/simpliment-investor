@@ -7,7 +7,7 @@
 <title>Simpliment — Confidential Investment Memorandum</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 /* ================= TOKENS — Simpliment (squared, no radius) ================= */
 :root{
@@ -55,8 +55,8 @@
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation-duration:.001ms!important;transition-duration:.001ms!important}}
-body{background:var(--bg);color:var(--tx);font-family:"Space Grotesk",-apple-system,BlinkMacSystemFont,sans-serif;font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
-h1,h2,h3,h4{font-family:"Fraunces",Georgia,serif;font-weight:600;line-height:1.08;text-wrap:balance;color:var(--tx)}
+body{background:var(--bg);color:var(--tx);font-family:"Montserrat",-apple-system,BlinkMacSystemFont,sans-serif;font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:"Montserrat",-apple-system,BlinkMacSystemFont,sans-serif;font-weight:600;line-height:1.08;text-wrap:balance;color:var(--tx)}
 .mono,.num{font-family:"JetBrains Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums}
 a{color:inherit}
 :focus-visible{outline:2px solid var(--accent);outline-offset:3px}
@@ -70,7 +70,7 @@ img{max-width:100%;display:block}
 #gate canvas{position:absolute;inset:0;opacity:.5}
 #gate .veil{position:absolute;inset:0;background:radial-gradient(120% 80% at 50% 40%,transparent,var(--ink) 78%)}
 #gate .card{position:relative;z-index:2;width:min(440px,100%);text-align:center}
-#gate .mark{font-family:"Fraunces";font-weight:600;font-size:2.6rem;color:#fff;letter-spacing:-.02em}
+#gate .mark{font-family:"Montserrat";font-weight:600;font-size:2.6rem;color:#fff;letter-spacing:-.02em}
 #gate .mark b{color:var(--azure-hi)}
 #gate .kicker{font-family:"JetBrains Mono";font-size:.66rem;letter-spacing:.32em;text-transform:uppercase;color:var(--azure-hi);margin-top:14px}
 #gate p{color:var(--tx-on-dark-2);font-size:.9rem;margin:22px auto 24px;line-height:1.55;max-width:36ch}
@@ -108,7 +108,7 @@ section{padding:clamp(64px,9vw,116px) 0;border-top:1px solid var(--line)}
 #hero .veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(7,12,22,.55) 0%,rgba(7,12,22,.30) 40%,rgba(7,12,22,.82) 100%)}
 #hero .wrap{position:relative;z-index:3;max-width:1180px;margin:0 auto;padding:0 clamp(20px,5vw,64px);width:100%;flex:1;display:flex;flex-direction:column;color:var(--tx-on-dark)}
 #hero .topbar{display:flex;justify-content:space-between;align-items:center;padding:26px 0;gap:16px}
-#hero .brand{font-family:"Fraunces";font-weight:600;font-size:1.3rem;color:#fff;letter-spacing:-.01em}
+#hero .brand{font-family:"Montserrat";font-weight:600;font-size:1.3rem;color:#fff;letter-spacing:-.01em}
 #hero .brand b{color:var(--azure-hi)}
 #hero .tag{font-family:"JetBrains Mono";font-size:.62rem;letter-spacing:.24em;text-transform:uppercase;color:var(--tx-on-dark-2);text-align:right}
 #hero .hero-body{flex:1;display:flex;flex-direction:column;justify-content:center;padding:40px 0;max-width:24ch}
@@ -118,7 +118,7 @@ section{padding:clamp(64px,9vw,116px) 0;border-top:1px solid var(--line)}
 #hero .topline{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin:44px 0;max-width:900px}
 #hero .topline .cell{background:var(--ink-2);padding:20px 20px}
 #hero .topline .k{font-family:"JetBrains Mono";font-size:.6rem;letter-spacing:.13em;text-transform:uppercase;color:var(--tx-on-dark-2)}
-#hero .topline .v{font-family:"Fraunces";font-size:clamp(1.5rem,3vw,2rem);font-weight:600;color:#fff;margin-top:8px}
+#hero .topline .v{font-family:"Montserrat";font-size:clamp(1.5rem,3vw,2rem);font-weight:600;color:#fff;margin-top:8px}
 #hero .topline .v .u{font-size:.5em;font-family:"JetBrains Mono";color:var(--azure-hi);vertical-align:.4em;margin-left:2px}
 #hero .topline .cell.val .v{color:var(--gold-hi)}
 #hero .scroll{padding:18px 0 32px;font-family:"JetBrains Mono";font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:var(--tx-on-dark-2);display:flex;align-items:center;gap:12px}
@@ -132,7 +132,7 @@ section{padding:clamp(64px,9vw,116px) 0;border-top:1px solid var(--line)}
 .kpi::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--accent)}
 .kpi.val::before{background:var(--val)}
 .kpi .k{font-family:"JetBrains Mono";font-size:.64rem;letter-spacing:.13em;text-transform:uppercase;color:var(--tx-3)}
-.kpi .v{font-family:"Fraunces";font-size:2rem;font-weight:600;margin:12px 0 4px;line-height:1}
+.kpi .v{font-family:"Montserrat";font-size:2rem;font-weight:600;margin:12px 0 4px;line-height:1}
 .kpi .d{font-size:.82rem;color:var(--tx-2)}
 .chip{display:inline-flex;align-items:center;gap:5px;font-family:"JetBrains Mono";font-size:.72rem;font-weight:600;padding:2px 7px}
 .chip.up{color:var(--good);background:color-mix(in srgb,var(--good) 15%,transparent)}
@@ -154,7 +154,7 @@ section{padding:clamp(64px,9vw,116px) 0;border-top:1px solid var(--line)}
 .drow .lbl{color:var(--tx-2);font-size:.92rem}
 .drow .val{font-family:"JetBrains Mono";font-weight:500}
 .drow.tot{border-top:2px solid var(--line-strong);border-bottom:0;margin-top:6px;padding-top:14px}
-.drow.tot .lbl{color:var(--tx);font-weight:700;font-family:"Fraunces";font-size:1.05rem}
+.drow.tot .lbl{color:var(--tx);font-weight:700;font-family:"Montserrat";font-size:1.05rem}
 .drow.tot .val{font-weight:600;font-size:1.1rem;color:var(--val-ink)}
 .drow .pct{color:var(--tx-3);font-size:.78rem;margin-left:10px}
 
@@ -196,7 +196,7 @@ input[type=range]::-moz-range-thumb{width:18px;height:18px;background:var(--acce
 .out-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
 .out-grid .o{background:var(--surface);padding:20px}
 .out-grid .o .k{font-family:"JetBrains Mono";font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--tx-3)}
-.out-grid .o .v{font-family:"Fraunces";font-size:1.85rem;font-weight:600;margin-top:8px;line-height:1;color:var(--tx)}
+.out-grid .o .v{font-family:"Montserrat";font-size:1.85rem;font-weight:600;margin-top:8px;line-height:1;color:var(--tx)}
 .out-grid .o .sub{font-size:.76rem;color:var(--tx-2);margin-top:6px}
 .v.good{color:var(--good)!important}.v.warn{color:var(--warn)!important}.v.crit{color:var(--crit)!important}
 
@@ -215,6 +215,34 @@ input[type=range]::-moz-range-thumb{width:18px;height:18px;background:var(--acce
 .band canvas{position:absolute;inset:0;opacity:.4}
 .shot{margin:26px 0 6px;border:1px solid var(--line-strong);box-shadow:0 20px 60px rgba(0,0,0,.5);max-width:920px;background:#F2EFE7}
 .shot img{width:100%;display:block}
+
+/* feature panel — search/tags first, cards on demand */
+.feat-panel{margin:26px 0 6px;max-width:920px;border:1px solid var(--line-strong);background:var(--ink-2);box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.feat-panel .fp-top{padding:20px 22px;border-bottom:1px solid var(--line)}
+.feat-panel .fp-search{display:flex;gap:8px;background:var(--ink);border:1px solid var(--line-strong)}
+.feat-panel .fp-search input{flex:1;background:transparent;border:0;color:#fff;font-size:.92rem;padding:11px 13px;font-family:"Montserrat"}
+.feat-panel .fp-search input:focus{outline:none}
+.feat-panel .fp-search input::placeholder{color:var(--tx-on-dark-2)}
+.feat-panel .fp-count{font-family:"JetBrains Mono";font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--tx-on-dark-2);padding:10px 13px;white-space:nowrap;border-left:1px solid var(--line-strong)}
+.feat-panel .fp-pills{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.feat-panel .fp-pill{font-family:"JetBrains Mono";font-size:.66rem;letter-spacing:.04em;padding:6px 10px;background:transparent;border:1px solid var(--line-strong);color:var(--tx-on-dark-2);cursor:pointer;transition:.15s}
+.feat-panel .fp-pill:hover{border-color:var(--azure-hi);color:#fff}
+.feat-panel .fp-pill.on{background:var(--azure);border-color:var(--azure);color:#fff}
+.feat-panel .fp-body{padding:20px 22px;min-height:120px}
+.feat-panel .fp-empty{color:var(--tx-on-dark-2);font-size:.88rem;padding:22px 4px;text-align:center;line-height:1.6}
+.feat-panel .fp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1px}
+.feat-panel .fp-card{background:var(--ink-2);padding:14px 16px;border:1px solid var(--line)}
+.feat-panel .fp-card .fp-row{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.feat-panel .fp-card .fp-mod{font-family:"JetBrains Mono";font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;color:var(--azure-hi)}
+.feat-panel .fp-card .fp-t{font-family:"JetBrains Mono";font-size:.56rem;letter-spacing:.06em;padding:1px 6px;color:var(--tx-on-dark-2);border:1px solid var(--line-strong)}
+.feat-panel .fp-card .fp-f{color:#fff;font-weight:600;font-size:.88rem;margin-top:6px}
+.feat-panel .fp-card .fp-d{color:var(--tx-on-dark-2);font-size:.78rem;margin-top:4px;line-height:1.45}
+.feat-panel .fp-more{grid-column:1/-1;background:var(--ink-2);padding:14px 16px;text-align:center;font-size:.8rem;color:var(--tx-on-dark-2)}
+.feat-panel .fp-more a{color:var(--azure-hi);font-weight:600;text-decoration:none}
+.feat-panel .fp-more a:hover{text-decoration:underline}
+.feat-panel .fp-foot{padding:12px 22px;border-top:1px solid var(--line);font-family:"JetBrains Mono";font-size:.64rem;letter-spacing:.04em;color:var(--tx-on-dark-2)}
+.feat-panel .fp-foot a{color:var(--azure-hi);text-decoration:none;font-weight:600}
+.feat-panel .fp-foot a:hover{text-decoration:underline}
 
 /* ways to participate */
 .ways{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
@@ -318,8 +346,18 @@ svg text{font-family:"JetBrains Mono";fill:var(--tx-3)}
   <!-- PRODUCT PROOF BAND -->
   <div class="band" style="background:var(--ink-2)"><div class="inner">
     <div class="eb">Built, not slideware</div>
-    <h3>This is the actual control plane — running today.</h3>
-    <div class="shot"><img src="assets/ss-hub-ui.png" alt="SimpleSuite Hub control plane — live product UI" loading="lazy"></div>
+    <h3>This is the actual capability set — running today.</h3>
+    <div class="feat-panel" id="featPanel">
+      <div class="fp-top">
+        <div class="fp-search">
+          <input id="fpQuery" type="text" placeholder="Search what SimpleSuite does — e.g. “sell”, “booking”, “email”…" autocomplete="off" />
+          <span class="fp-count" id="fpCount"></span>
+        </div>
+        <div class="fp-pills" id="fpPills"></div>
+      </div>
+      <div class="fp-body" id="fpBody"></div>
+      <div class="fp-foot">Sampled from the live capability catalog · <a href="https://simpliment.co/features" target="_blank" rel="noopener">explore the full list on simpliment.co →</a></div>
+    </div>
     <p>SS Hub on a live site: guided setup, module management (“8 of 8 active”), connections to Drive, GitHub, AI &amp; Stripe, and one-place configuration for the entire fleet.</p>
   </div></div>
 
@@ -467,6 +505,7 @@ svg text{font-family:"JetBrains Mono";fill:var(--tx-3)}
 /* ============================ DATA (from Simpliment CIM / ProForma, illustrative) ============================ */
 const DATA={
   meta:{prepared:"July 2026", code:"simpliment2026"},
+  featPanel:[{"m":"Fleet","f":"Site portability","d":"import a standalone install into the network as a subsite, or eject a subsite to its own install (previewed for a later slice)","t":"FB"},{"m":"Fleet","f":"Customer article search","d":"published articles feed the customer \"Find answers\" deflection funnel","t":"FE"},{"m":"Fleet","f":"Find answers","d":"search the Knowledge Base for a self-serve answer before contacting support","t":"FE"},{"m":"Fleet","f":"Quick site check","d":"run an honest per-site diagnostic (modules active + update status)","t":"FE"},{"m":"Hub","f":"Unified SimpleSuite admin shell","d":"every module renders inside one branded dark-sidebar + topbar chrome","t":"FB"},{"m":"Hub","f":"Cross-app switcher tray","d":"icon bar auto-populated from installed modules, in the shell and the front-end app bar","t":"FE"},{"m":"Hub","f":"First-run coachmark hints","d":"dismissible, per-user onboarding tips modules declare and the shell renders","t":"FE"},{"m":"Hub","f":"Suite-wide design-token stylesheet","d":"canonical `--ss-*` tokens on every screen so all modules share one visual system","t":"FE"},{"m":"Identity","f":"Unified Auth block","d":"tabbed login + register form, the recommended sign-in surface (`ssi_auth`)","t":"FE"},{"m":"Identity","f":"Login form","d":"standalone branded login box with multiple shortcode aliases","t":"FE"},{"m":"Identity","f":"Social login","d":"\"Continue with Google / Meta\" one-shot OAuth sign-in using Hub-vaulted credentials","t":"FE"},{"m":"Identity","f":"Logout link","d":"logout control for authenticated users","t":"FE"},{"m":"Launch","f":"Three-path launch wizard","d":"build a page/site via Preset design, AI (dynamic) design, or Redesign (convert)","t":"FB"},{"m":"Launch","f":"100+ prebuilt section templates","d":"heroes, cards, pricing, testimonials, CTAs, FAQs, features, footers, navs, forms, portfolios, stats","t":"FB"},{"m":"Launch","f":"Section variants","d":"per-section format/layout options chosen in the block inspector","t":"FB"},{"m":"Launch","f":"Add section","d":"insert a new section from candidate lists","t":"FB"},{"m":"Visibility","f":"Per-page SEO audit","d":"flags 20+ issues (titles, meta descriptions, canonical, social tags, noindex, URL hygiene, headings, structured data, viewport)","t":"BE"},{"m":"Visibility","f":"Search-result & social preview control","d":"overrides document title and emits Open Graph tags","t":"FE"},{"m":"Visibility","f":"Structured data (schema)","d":"auto-emits Organization + BreadcrumbList JSON-LD, per-page schema recommendations","t":"FE"},{"m":"Visibility","f":"Accessibility audit","d":"crawls for 12 WCAG-style issues (alt text, headings, link text, form labels, page language, landmarks, skip link, table headers)","t":"BE"},{"m":"Team","f":"Public application form","d":"schema-driven applicant intake (`[ss-team-application]` + block), optionally scoped to one position","t":"FE"},{"m":"Team","f":"New-application notifications","d":"email HR recipients on arrival plus an acknowledgment to the applicant","t":"FB"},{"m":"Team","f":"Personal time clock","d":"signed-in staff punch in/out (`[ss-team-clock]` + block), with live status","t":"FE"},{"m":"Team","f":"Kiosk clock","d":"shared PIN-gated kiosk mode with a staff roster for on-site punching","t":"FE"},{"m":"Workspace","f":"Workspace Hub tab","d":"dedicated section with a Pages / Access / Set Up / Actions / Skin sidebar","t":"FB"},{"m":"Workspace","f":"Role-aware landing","d":"entry screen adapts to tier (Admin, Manager, Member/client, fallback)","t":"FE"},{"m":"Workspace","f":"Admin overview cards","d":"2×2 grid: Pages, Access, Actions, Set Up with live counts","t":"FE"},{"m":"Workspace","f":"Manager overview","d":"\"your desk\" view of assigned pages, own drafts, pending actions","t":"FE"},{"m":"Members","f":"Level card block","d":"display a single level as a styled card with features and a signup CTA","t":"FE"},{"m":"Members","f":"Level features block","d":"render the current member's level features with fallback and empty-state","t":"FE"},{"m":"Members","f":"Pricing table block","d":"all active levels in a pricing table with a monthly/yearly toggle","t":"FE"},{"m":"Members","f":"Stripe checkout signup","d":"paid signups run through Stripe; free levels skip payment","t":"FB"},{"m":"Events","f":"Live slot availability","d":"visitors see open slots computed from availability, buffers, existing bookings","t":"FE"},{"m":"Events","f":"Google Calendar sync","d":"booked sessions create/update/delete Google Calendar events","t":"FB"},{"m":"Events","f":"Calendar free/busy blocking","d":"pulls busy intervals from Google to prevent double-booking","t":"FB"},{"m":"Events","f":"Paid or free events","d":"set a price (or 0); checkout runs through Hub's Stripe","t":"FB"},{"m":"Progress","f":"Mobile-first member app","d":"responsive SPA with bottom tab bar on mobile and side rail on desktop","t":"FE"},{"m":"Progress","f":"Today scene","d":"daily home showing points, streak, today's actions, progress ring","t":"FE"},{"m":"Progress","f":"Actions scene","d":"assigned goals and checklist tasks with one-tap complete/toggle","t":"FE"},{"m":"Progress","f":"Practice scene","d":"assigned drill decks plus an in-app drill player","t":"FE"},{"m":"Pulse","f":"Pulse console","d":"Start, View, Decide, Configure sections plus a Status health page","t":"FB"},{"m":"Pulse","f":"Start landing page","d":"hero + 2×2 card overview with cached at-a-glance counts","t":"FE"},{"m":"Pulse","f":"Ecosystem health dashboard","d":"unified KPI dashboard flattening all connected modules/channels with period-over-period baselines","t":"FE"},{"m":"Pulse","f":"Members panel","d":"active/pending/cancelled, signups vs cancellations, at-risk","t":"FE"},{"m":"ActionStudio","f":"Contacts CRM","d":"create, edit, list, and profile people with activity history, notes, linked deals/projects","t":"FB"},{"m":"ActionStudio","f":"Quick-add","d":"one-click \"+\" contact/task/event/opportunity/company creation from the top bar","t":"FE"},{"m":"ActionStudio","f":"Companies","d":"company records with departments and per-company contact rosters","t":"FB"},{"m":"ActionStudio","f":"Duplicate detection & merge","d":"surface duplicate contacts and merge into one record","t":"FB"},{"m":"CashFlow","f":"Financial dashboard","d":"single-pane app: Dashboard, Income, Expenses, Balance, Transactions, Budget, Net Worth","t":"FE"},{"m":"CashFlow","f":"Status widget shortcode (`[cfo_status]`)","d":"front-end tile: QB connection, last sync, transaction count, match rate, needs-review","t":"FE"},{"m":"CashFlow","f":"Cash-on-hand & KPI stats","d":"cash-on-hand, income/expense/net totals, match-rate","t":"FE"},{"m":"CashFlow","f":"Charts suite","d":"monthly totals, weekly expenses, category breakdown (with drill-down), division-monthly, per-entity net/totals","t":"FE"},{"m":"InsightMent","f":"Take the assessment","d":"answer the questionnaire (Clarity, Curiosity, Commitment, Consistency) in ~8 minutes","t":"FE"},{"m":"InsightMent","f":"Personal dashboard","d":"signed-in landing that resolves state (new/pending/completed) and routes accordingly","t":"FE"},{"m":"InsightMent","f":"Take/retake funnel","d":"new takers and retakers land on welcome/questions; returning users land on dashboard","t":"FE"},{"m":"InsightMent","f":"Welcome & register","d":"combined welcome + account registration for new takers","t":"FE"},{"m":"CourseForge","f":"CourseForge admin console","d":"dedicated app (sidebar, topbar, surface routing)","t":"FB"},{"m":"CourseForge","f":"Home dashboard","d":"hero landing with Library, Design, Deliver, Settings cards and a live course count","t":"FE"},{"m":"CourseForge","f":"Cross-app dock","d":"bottom-of-sidebar icon tray to the other apps plus \"View site\"","t":"FE"},{"m":"CourseForge","f":"Collapsible sidebar + toast notifications","d":"persistent chrome","t":"FE"}],
   kpis:[
     {k:"WordPress share of web",v:"~40%",d:"the installed base to win",chip:"distribution",cls:"flat"},
     {k:"Shippable assets built",v:"20",d:"12 suite · 4 bolt-ons · 4 verticals",chip:"pre-revenue",cls:"up"},
@@ -570,6 +609,57 @@ function renderKpis(){$('#kpiGrid').innerHTML=DATA.kpis.map((c,i)=>`<div class="
 function modCard(m){return `<div class="mod"><div class="nm"><span class="st ${m.st}"></span>${m.nm}</div><div class="ds">${m.ds}</div>${m.cls?`<div class="cls">${m.cls}</div>`:''}</div>`;}
 function renderFolio(){$('#folioModules').innerHTML=DATA.modules.map(modCard).join('');$('#folioPlugins').innerHTML=DATA.plugins.map(modCard).join('');$('#folioVerticals').innerHTML=DATA.verticals.map(modCard).join('');}
 
+/* feature panel — search/tags first, cards only once you interact */
+const FP_TAGS=[
+  {lb:"Sell & get paid",mods:["Members","Events","CashFlow"]},
+  {lb:"Run financial reports",mods:["CashFlow"]},
+  {lb:"Book appointments",mods:["Events"]},
+  {lb:"Build a website",mods:["Launch"]},
+  {lb:"Sell & deliver courses",mods:["CourseForge"]},
+  {lb:"Track leads & customers",mods:["ActionStudio"]},
+  {lb:"Manage memberships",mods:["Members"]},
+  {lb:"Improve SEO & site health",mods:["Visibility"]},
+  {lb:"Sign-in & access control",mods:["Identity"]},
+  {lb:"Deflect support tickets",mods:["Fleet"]},
+  {lb:"Coach & track progress",mods:["Progress"]},
+  {lb:"Manage staff & HR",mods:["Team"]},
+  {lb:"Team permissions & workspace",mods:["Workspace"]},
+  {lb:"Analytics & health dashboards",mods:["Pulse"]},
+  {lb:"One control panel for it all",mods:["Hub"]}
+];
+let fpTag=null;
+function initFeatPanel(){
+  $('#fpPills').innerHTML=FP_TAGS.map((t,i)=>`<button type="button" class="fp-pill" data-i="${i}">${t.lb}</button>`).join('');
+  $('#fpPills').addEventListener('click',e=>{
+    const b=e.target.closest('.fp-pill');if(!b)return;
+    const i=+b.dataset.i;
+    fpTag=(fpTag===i)?null:i;
+    $$('.fp-pill').forEach(p=>p.classList.toggle('on',+p.dataset.i===fpTag));
+    renderFeatPanel();
+  });
+  $('#fpQuery').addEventListener('input',renderFeatPanel);
+  renderFeatPanel();
+}
+function renderFeatPanel(){
+  const q=$('#fpQuery').value.trim().toLowerCase();
+  const active=q.length>0||fpTag!==null;
+  const body=$('#fpBody'),count=$('#fpCount');
+  if(!active){
+    body.innerHTML=`<div class="fp-empty">Try “can I sell products”, “run financial reports”, “book appointments”… or pick a tag above.<br>${DATA.featPanel.length} shown here · 900+ live on the full site.</div>`;
+    count.textContent='';
+    return;
+  }
+  const tagMods=fpTag!==null?FP_TAGS[fpTag].mods:null;
+  let hits=DATA.featPanel.filter(f=>(!tagMods||tagMods.includes(f.m))&&(!q||(f.f+' '+f.d+' '+f.m).toLowerCase().includes(q)));
+  count.textContent=hits.length+' match'+(hits.length===1?'':'es');
+  if(!hits.length){body.innerHTML=`<div class="fp-empty">No matches in this sample — try a different word, or explore the full live catalog.</div>`;return;}
+  const CAP=24;const shown=hits.slice(0,CAP);
+  let html=`<div class="fp-grid">`+shown.map(f=>`<div class="fp-card"><div class="fp-row"><span class="fp-mod">${f.m}</span><span class="fp-t">${f.t}</span></div><div class="fp-f">${f.f}</div><div class="fp-d">${f.d}</div></div>`).join('');
+  if(hits.length>CAP)html+=`<div class="fp-more">+${hits.length-CAP} more matches in the full 900+ catalog — <a href="https://simpliment.co/features" target="_blank" rel="noopener">explore live →</a></div>`;
+  html+=`</div>`;
+  body.innerHTML=html;
+}
+
 function renderRevChart(){
   const box=$('#revChart'),W=box.clientWidth||520,H=300,P={l:52,r:14,t:16,b:34};
   const yrs=['Year 1','Year 2','Year 3'],iw=W-P.l-P.r,ih=H-P.t-P.b;
@@ -633,7 +723,7 @@ function renderUof(){
   alloc.forEach(u=>{const a2=ang+(u.amt/raise)*Math.PI*2;const x1=cx+Math.cos(ang)*r,y1=cy+Math.sin(ang)*r,x2=cx+Math.cos(a2)*r,y2=cy+Math.sin(a2)*r;const xi1=cx+Math.cos(ang)*ir,yi1=cy+Math.sin(ang)*ir,xi2=cx+Math.cos(a2)*ir,yi2=cy+Math.sin(a2)*ir;const large=(a2-ang)>Math.PI?1:0;
     g+=`<path d="M ${x1} ${y1} A ${r} ${r} 0 ${large} 1 ${x2} ${y2} L ${xi2} ${yi2} A ${ir} ${ir} 0 ${large} 0 ${xi1} ${yi1} Z" fill="${css(u.c)}" data-tt="${u.k}" data-tv="${fmt(u.amt)} · ${pct(u.amt/raise)}"></path>`;ang=a2;});
   const runway=Math.floor(raise/burn);
-  box.innerHTML=`<div style="display:flex;gap:20px;align-items:center;flex-wrap:wrap"><svg viewBox="0 0 ${S} ${S}" width="180" height="180">${g}<text x="${cx}" y="${cy-4}" text-anchor="middle" style="fill:var(--tx);font-family:Fraunces;font-size:20px;font-weight:600">${fmtK(raise)}</text><text x="${cx}" y="${cy+14}" text-anchor="middle" class="axis-lbl">total raise</text></svg>
+  box.innerHTML=`<div style="display:flex;gap:20px;align-items:center;flex-wrap:wrap"><svg viewBox="0 0 ${S} ${S}" width="180" height="180">${g}<text x="${cx}" y="${cy-4}" text-anchor="middle" style="fill:var(--tx);font-family:Montserrat;font-size:20px;font-weight:600">${fmtK(raise)}</text><text x="${cx}" y="${cy+14}" text-anchor="middle" class="axis-lbl">total raise</text></svg>
     <div style="flex:1;min-width:150px">${alloc.map(u=>`<div class="li" style="display:flex;align-items:center;gap:8px;font-size:.78rem;color:var(--tx-2);padding:3px 0"><span class="sw" style="width:11px;height:11px;background:${css(u.c)}"></span>${u.k.split(' (')[0]} <b style="margin-left:auto;font-family:JetBrains Mono;color:var(--tx)">${pct(u.amt/raise)}</b></div>`).join('')}</div></div>`;
   wireTips(box);
   $('#oRunway').textContent=runway+' mo';
@@ -687,7 +777,7 @@ function initGate(){const f=$('#gateForm');f.addEventListener('submit',async e=>
 let booted=false;
 function boot(){
   if(booted)return;booted=true;
-  renderKpis();renderFolio();renderRevChart();renderArrChart();renderUof();renderIp();buildRail();
+  renderKpis();renderFolio();renderRevChart();renderArrChart();renderUof();renderIp();buildRail();initFeatPanel();
   $('#prepDate').textContent=DATA.meta.prepared;
   fleet($('#heroCanvas'),{n:30,hubx:0.72,huby:0.42});
   fleet($('#bandCanvas'),{n:16,hubx:0.85,huby:0.5});
